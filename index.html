@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        hmtl,
+        body,
+        h1 {
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            background-color: #ddd;
+        }
+        
+        .container {
+            font-size: 1em;
+        }
+        
+        .content {
+            width: 90%;
+            margin: 30px auto;
+            position: relative;
+            border: 1px solid #aaa;
+            padding: 26px 14px 16px;
+        }
+        
+        .content>h1 {
+            text-align: center;
+            position: absolute;
+            left: 30%;
+            top: -40px;
+            border-bottom: 3px solid #000000;
+            padding-bottom: 10px;
+            background-color: #ddd;
+            width: 160px;
+            margin: 10px;
+            z-index: 3;
+        }
+        
+        .school {
+            font-size: 1.2em;
+        }
+        
+        .school,
+        .score {
+            display: block;
+            margin: 20px auto;
+        }
+        
+        .score {
+            border-collapse: collapse;
+        }
+        
+        th,
+        td {
+            padding: 8px;
+            text-align: center;
+        }
+        
+        .score th,
+        .score td {
+            border: 1px solid black;
+        }
+        
+        .b {
+            font-weight: 700;
+        }
+        
+        .underline {
+            border-bottom: 1px solid #000000;
+        }
+        
+        select option,
+        select {
+            background-color: #eee;
+            text-align: center;
+        }
+        
+        .clearfix {
+            clear: both;
+        }
+        
+        .note {
+            font-size: .5em;
+        }
+    </style>
+    <script src="./vue2.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="content" id="app">
+
+            <h1>成绩单</h1>
+            <table class="school">
+                <tr>
+                    <td class="b">学校名称：</td>
+                    <td class="underline">九江科技中专</td>
+                </tr>
+                <tr>
+                    <td class="b">学校系部：</td>
+                    <td class="underline ">信息技术系</td>
+                </tr>
+                <tr>
+                    <td class="b">所在班级：</td>
+                    <td class="underline ">20秋计算机3班</td>
+                </tr>
+                <tr>
+                    <td class="b">
+                        学生姓名：
+                    </td>
+                    <td class="underline">
+                        <select onchange="gradeChange(this.options[this.options.selectedIndex].text)" style="font-size: 1.1em;">
+                            <option >请选择学生姓名：</option>
+                            <option v-for="(name,index) in score ">{{index}}</option>
+                        </select>
+                    </td>
+                </tr>
+
+            </table>
+            <table class="score ">
+                <tr>
+                    <th>科目</th>
+                    <th>语文</th>
+                    <th>数学</th>
+                    <th>英语</th>
+                    <th>计算机网络</th>
+                    <th>LINUX</th>
+                </tr>
+                <tr>
+                    <td>成绩</td>
+                    <td>{{chinese}}</td>
+                    <td>{{math}}</td>
+                    <td>{{english}}</td>
+                    <td>{{network}}</td>
+                    <td>{{linux}}</td>
+                </tr>
+
+            </table>
+            <div class="clearfix "></div>
+        </div>
+        <div class="note">使用说明：选中“学生姓名”中的对应学生显示期末成绩</div>
+    </div>
+    <script>
+        const app = new Vue({
+            el: "#app ",
+            data: {
+                score: {
+                    "艾美亮 ": "66-66-92-82-87 ",
+                    "安梓健 ": "78-61-92-87-88 ",
+                    "曹云飞 ": "59-74-90-95-96 ",
+                    "查方元 ": "98-72-96-98-85 ",
+                    "陈亮 ": "85-62-86-93-80 ",
+                    "陈烨 ": "92-56-93-98-75 ",
+                    "陈意 ": "66-52-72-67-84 ",
+                    "董佳豪 ": "64-61-86-90-96 ",
+                    "段洁 ": "81-78-88-92-98 ",
+                    "冯炜 ": "80-64-85-86-89 ",
+                    "高骏 ": "69-62-76-63-69 ",
+                    "龚盛红 ": "93-77-93-94-76 ",
+                    "胡宜斌 ": "83-63-93-97-94 ",
+                    "黄晨 ": "69-57-77-81-79 ",
+                    "黄支海 ": "82-70-90-93-91 ",
+                    "鞠佳敏 ": "41-64-82-85-92 ",
+                    "柯揚揚 ": "64-52-76-65-66 ",
+                    "李红明 ": "56-59-87-94-84 ",
+                    "李晋 ": "98-62-94-98-81 ",
+                    "李文涛 ": "60-50-79-79-89 ",
+                    "刘炳康 ": "97-65-97-98-81 ",
+                    "刘程 ": "68-59-73-91-89 ",
+                    "刘涛 ": "93-53-91-93-78 ",
+                    "刘小宝 ": "73-51-84-88-72 ",
+                    "卢焱初 ": "86-58-91-92-88 ",
+                    "罗贤梅 ": "72-70-87-79-96 ",
+                    "马晨浩 ": "缺考-缺考-缺考-缺考-缺考 ",
+                    "倪康耕 ": "73-51-80-89-75 ",
+                    "钱尊锴 ": "80-53-87-93-92 ",
+                    "饶文凯 ": "86-64-91-92-85 ",
+                    "陶周明 ": "72-63-90-83-84 ",
+                    "万坤祥 ": "87-59-91-94-91 ",
+                    "王钦 ": "54-52-70-83-72 ",
+                    "徐海琪 ": "75-74-84-80-96 ",
+                    "徐永亮 ": "40-74-89-87-87 ",
+                    "徐雨淇 ": "78-65-86-82-96 ",
+                    "薛斌 ": "41-63-83-89-86 ",
+                    "杨锦 ": "57-62-81-92-90 ",
+                    "杨玉婷 ": "79-74-85-82-96 ",
+                    "姚思怡 ": "79-57-86-87-96 ",
+                    "易晓东 ": "68-74-78-89-89 ",
+                    "袁水林 ": "63-77-87-90-83 ",
+                    "张金炜 ": "70-58-79-94-78 ",
+                    "张立洋 ": "90-64-92-93-91 ",
+                    "张佩汝 ": "61-59-92-92-91 ",
+                    "张晓阳 ": "74-53-93-95-88 ",
+                    "张宇涵 ": "58-55-70-66-57 ",
+                    "郑康康 ": "82-64-84-95-87 ",
+                    "周蕾 ": "85-83-90-97-100 ",
+                },
+                chinese: 0,
+                math: 0,
+                english: 0,
+                network: 0,
+                linux: 0
+            },
+            methods: {
+
+                getScore: function(name) {
+                    let value = this.score[name];
+                    let values = value.split("-");
+                    this.chinese = values[0]
+                    this.math = values[1]
+                    this.english = values[2]
+                    this.network = values[3]
+                    this.linux = values[4]
+                    console.log(values)
+                }
+            }
+        })
+
+
+        function gradeChange(tx) {
+            app.getScore(tx + " ")
+        }
+    </script>
+
+</body>
+
+</html>
